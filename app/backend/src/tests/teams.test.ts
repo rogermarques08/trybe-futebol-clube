@@ -30,4 +30,12 @@ describe('Teams', () => {
     expect(chaiHttpResponse.body).to.be.deep.equal(teamsMock);
     expect(chaiHttpResponse.status).to.be.equal(200);
   });
+
+  // it('Testa se é possível solicitar um time pelo id (GET /teams/:id)', async () => {
+  //   sinon.stub(Teams, 'findByPk').resolves(teamsMock[0] as Teams);
+  //   chaiHttpResponse = await chai.request(app).get('/teams');
+
+  //   expect(chaiHttpResponse.body).to.be.deep.equal(teamsMock[0]);
+  //   expect(chaiHttpResponse.status).to.be.equal(200);
+  // });
 });
