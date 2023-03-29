@@ -3,8 +3,10 @@ import { IType } from '../interfaces';
 const types: IType = {
   success: 200,
   invalidFields: 400,
-  notFound: 404,
   incorrectInfos: 401,
+  tokenNotFound: 401,
+  invalidToken: 401,
+  notFound: 404,
 };
 
 const mapTypes = (type: string): number => types[type] || 500;

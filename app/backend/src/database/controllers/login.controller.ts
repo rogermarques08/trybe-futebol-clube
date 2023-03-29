@@ -11,8 +11,17 @@ const login = async (req: Request, res: Response) => {
   return res.status(mapTypes(type)).json({ message });
 };
 
+const getUserRole = async (req: Request, res: Response) => {
+  const { user } = req.body;
+
+  const { type, message } = await loginService.getUserRole(user.email);
+
+  return res.status(mapTypes(type)).json({ role: message });
+};
+
 const loginController = {
   login,
+  getUserRole,
 };
 
 export default loginController;
