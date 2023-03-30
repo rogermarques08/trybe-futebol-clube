@@ -1,3 +1,4 @@
+import Match from '../models/match.model';
 import Teams from '../models/team.model';
 
 export interface IType {
@@ -8,5 +9,5 @@ export interface IType {
 
 export interface ITypeMessage {
   type: string,
-  message: string | Teams[] | Teams
+  message: string | Teams[] | Teams | Match[]
 }
