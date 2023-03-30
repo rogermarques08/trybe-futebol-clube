@@ -25,9 +25,16 @@ const getInProgress = async (inProgress: boolean): Promise<ITypeMessage> => {
   return { type: 'success', message: matches };
 };
 
+const finishMatch = async (id: string) => {
+  await MatchModel.update({ inProgress: false }, { where: { id } });
+
+  return { type: 'success', message: 'Finished' };
+};
+
 const matchService = {
   getAllMathces,
   getInProgress,
+  finishMatch,
 };
 
 export default matchService;
