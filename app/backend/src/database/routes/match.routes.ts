@@ -6,6 +6,8 @@ const matchRoutes = express.Router();
 
 matchRoutes.patch('/:id/finish', validateJWT, matchController.finishMatch);
 
+matchRoutes.patch('/:id', validateJWT, matchController.updateInprogressMatch);
+
 matchRoutes.get('/', matchController.getAllMathces);
 
 export default matchRoutes;

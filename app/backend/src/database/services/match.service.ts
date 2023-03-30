@@ -31,10 +31,20 @@ const finishMatch = async (id: string) => {
   return { type: 'success', message: 'Finished' };
 };
 
+const updateInprogressMatch = async (id:string, homeTeamGoals: string, awayTeamGoals: string) => {
+  await MatchModel.update(
+    { homeTeamGoals, awayTeamGoals },
+    { where: { id } },
+  );
+
+  return { type: 'success', message: 'Match updated!' };
+};
+
 const matchService = {
   getAllMathces,
   getInProgress,
   finishMatch,
+  updateInprogressMatch,
 };
 
 export default matchService;

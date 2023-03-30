@@ -28,10 +28,21 @@ const finishMatch = async (req: Request, res: Response) => {
   return res.status(mapTypes(type)).json({ message });
 };
 
+const updateInprogressMatch = async (req: Request, res: Response) => {
+  const { id } = req.params;
+  const { homeTeamGoals, awayTeamGoals } = req.body;
+
+  const { type, message } = await matchService
+    .updateInprogressMatch(id, homeTeamGoals, awayTeamGoals);
+
+  res.status(mapTypes(type)).json({ message });
+};
+
 const matchController = {
   getAllMathces,
   getInProgress,
   finishMatch,
+  updateInprogressMatch,
 };
 
 export default matchController;
