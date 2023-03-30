@@ -10,4 +10,6 @@ matchRoutes.patch('/:id', validateJWT, matchController.updateInprogressMatch);
 
 matchRoutes.get('/', matchController.getAllMathces);
 
+matchRoutes.post('/', validateJWT, matchController.createMatch);
+
 export default matchRoutes;

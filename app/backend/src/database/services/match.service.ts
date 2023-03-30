@@ -31,13 +31,48 @@ const finishMatch = async (id: string) => {
   return { type: 'success', message: 'Finished' };
 };
 
-const updateInprogressMatch = async (id:string, homeTeamGoals: string, awayTeamGoals: string) => {
-  await MatchModel.update(
-    { homeTeamGoals, awayTeamGoals },
-    { where: { id } },
-  );
+const updateInprogressMatch = async (
+  id: string,
+  homeTeamGoals: string,
+  awayTeamGoals: string,
+): Promise<ITypeMessage> => {
+  await MatchModel.update({ homeTeamGoals, awayTeamGoals }, { where: { id } });
 
   return { type: 'success', message: 'Match updated!' };
+};
+
+const equalTeamsError = {
+  type: 'equalTeams',
+  message: 'It is not possible to create a match with two equal teams',
+};
+
+const teamNotFoundError = {
+  type: 'notFound',
+  message: 'There is no team with such id!',
+};
+
+const createMatch = async (
+  homeTeamId: string,
+  awayTeamId: string,
+  homeTeamGoals: string,
+  awayTeamGoals: string,
+): Promise<ITypeMessage> => {
+  if (homeTeamId === awayTeamId) return equalTeamsError;
+
+  const getHomeTeam = await TeamModel.findByPk(homeTeamId);
+  const getAwayTeam = await TeamModel.findByPk(awayTeamId);
+
+  if (!getHomeTeam || !getAwayTeam) return teamNotFoundError;
+
+  const { dataValues } = await MatchModel.create({
+    homeTeamId,
+    awayTeamId,
+    homeTeamGoals,
+    awayTeamGoals,
+    inProgress: true,
+  });
+
+  return { type: 'created', message: dataValues };
 };
 
 const matchService = {
@@ -45,6 +80,7 @@ const matchService = {
   getInProgress,
   finishMatch,
   updateInprogressMatch,
+  createMatch,
 };
 
 export default matchService;
